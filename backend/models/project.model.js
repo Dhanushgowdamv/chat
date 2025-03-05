@@ -9,10 +9,13 @@ name:{
     trim:true,
     unique:[true,'project name shoul be unique'],
 },
-users:{
+users:[
+    {
     type:mongoose.Schema.Types.ObjectId,
     ref:'user'
 }
+],
+
 })
 
 const project = mongoose.model('project',projectSchema);

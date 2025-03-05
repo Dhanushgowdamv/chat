@@ -10,7 +10,18 @@ router.post('/create',
     projectController.createProject
 )
 
+router.get('/all',
+    authMiddleware.authUser,
+    projectController.getAllProject
+)
 
+router.put('/add-user',
+    authMiddleware.authUser,
+    body('projectId').isString().withMessage('project Id is required'),
+    body('users').isArray({min: 1}).withMessage('usermust be of strings').bail()
+    .custom((users)=> users.every(user => typeof user === 'string')).withMessage('each user must be string'),
+    projectController.addUserToProject
+    )
 
 
 
