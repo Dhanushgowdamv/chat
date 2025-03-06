@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/user.context";
 import axios from '../config/axios.js'
 
@@ -8,6 +8,7 @@ const Home = () => {
   const { user } = useContext(UserContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [projectName,setProjectName] = useState(null)
+  const [project,setProject]= useState(null)
   function createProject(e) {
     e.preventDefault()
     console.log({ projectName });
@@ -25,16 +26,32 @@ const Home = () => {
 
   }
 
+  useEffect(()=>{
+    axios.get('/project/all').then((res)=>{
+     setProject(res.data.project)
+    }).catch(err=>{
+      console.log(err)
+    })
+  },[])
+
   return (
     <main className="p-4">
-      <div className="projects">
+      <div className="projects flex">
         <button 
         onClick={() =>setIsModalOpen(true)}
         className="project p-4 border border-slate-300 rounded-md">
           New Project
           <i className="ri-link ml-3"></i>
         </button>
+       
+       {
+        project.map((project)=>(
+          <div key={project._id}>
+            {project.name}
+          </div>
 
+        ))
+       }
 
 
 
