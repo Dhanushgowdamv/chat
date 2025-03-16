@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import React, { createContext, useState, useContext } from 'react';
 
 // Create the UserContext
